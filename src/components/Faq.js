@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
+import { Container, Row, Col, Accordion } from 'react-bootstrap';
 import IconText from './IconText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -28,7 +28,7 @@ const Faq = () => {
   return (
   <section className='faq text-light'>
     <Container className='faq py-5'>
-      <Row className='justify-content-center'>
+      <Row className='text-center'>
         <h2 className='faq-title my-5'>Dúvidas frequentes</h2>
       </Row>
         <Row className='d-flex align-items-center justify-items-center'>
@@ -67,14 +67,13 @@ const Faq = () => {
                   ))}
             </Col>
 
-            <Col>
+          <Col>
             <Accordion defaultActiveKey='0' activeKey={`${index}`}>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='0'>
+              <Accordion.Item eventKey='0' className='acc__item'>
+                <Accordion.Header className='acc__header'>
                   Lorem ipsum dolor sit amet
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey='0'>
-                  <Card.Body>
+                </Accordion.Header>
+                  <Accordion.Body className='acc_body'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam tincidunt arcu vel arcu fermentum, eget accumsan
                     dolor dignissim. Nam eget quam semper, varius ligula sed,
@@ -84,15 +83,14 @@ const Faq = () => {
                     purus ante, congue vel arcu ac, porta condimentum mauris.
                     Maecenas massa orci, fringilla eget fermentum nec, dignissim
                     nec diam.
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='1'>
+                  </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="1" className='acc__item'>
+                <Accordion.Header>
                   Nulla porttitor eros ac ex tristique posuere
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey='1'>
-                  <Card.Body>
+                </Accordion.Header>
+                  <Accordion.Body className='faq__item'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam tincidunt arcu vel arcu fermentum, eget accumsan
                     dolor dignissim. Nam eget quam semper, varius ligula sed,
@@ -102,15 +100,14 @@ const Faq = () => {
                     purus ante, congue vel arcu ac, porta condimentum mauris.
                     Maecenas massa orci, fringilla eget fermentum nec, dignissim
                     nec diam.
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='2'>
+                  </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="2" className='acc__item'>
+                <Accordion.Header>
                   Quisque fringilla tincidunt arcu
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey='2'>
-                  <Card.Body>
+                </Accordion.Header>
+                  <Accordion.Body className='faq__item'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam tincidunt arcu vel arcu fermentum, eget accumsan
                     dolor dignissim. Nam eget quam semper, varius ligula sed,
@@ -120,15 +117,14 @@ const Faq = () => {
                     purus ante, congue vel arcu ac, porta condimentum mauris.
                     Maecenas massa orci, fringilla eget fermentum nec, dignissim
                     nec diam.
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-              <Card>
-                <Accordion.Toggle as={Card.Header} eventKey='3'>
+                  </Accordion.Body>
+              </Accordion.Item>
+
+              <Accordion.Item eventKey="3" className='acc__item'>
+                <Accordion.Header>
                   Nam elementum lobortis purus a maximus tortor
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey='3'>
-                  <Card.Body>
+                </Accordion.Header>
+                  <Accordion.Body className='faq__item'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                     Nullam tincidunt arcu vel arcu fermentum, eget accumsan
                     dolor dignissim. Nam eget quam semper, varius ligula sed,
@@ -138,15 +134,14 @@ const Faq = () => {
                     purus ante, congue vel arcu ac, porta condimentum mauris.
                     Maecenas massa orci, fringilla eget fermentum nec, dignissim
                     nec diam.
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
+                  </Accordion.Body>
+              </Accordion.Item>
             </Accordion>
-            </Col>
+          </Col>
         </Row>
     </Container>
-    </section>
-)
+  </section>
+  );
 };
 
 export default Faq;

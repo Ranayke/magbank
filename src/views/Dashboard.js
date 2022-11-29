@@ -1,146 +1,97 @@
-import React from 'react';
-import { Container, Row, Col, Button, Tabs, Tab, Table } from 'react-bootstrap';
+import { React, useState } from 'react';
+import { Routes, Route, Link } from "react-router-dom";
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle, faUser } from '@fortawesome/free-solid-svg-icons';
-
+import { faUser, faCircle } from '@fortawesome/free-solid-svg-icons';
 import './Dashboard.scss';
 
-const Dashboard = () => {
+import AccountBalance from '../components/AccountBalance';
+import AccountPayments from '../components/AccountPayments';
+import AccountHistory from '../components/AccountHistory';
 
-    const latestData = [
-        {date: '22/07', description: 'SAQUE 24H 012345', value:'300,00'},
-        {date: '21/07', description: 'SUPERMERCADO 2312345', value:'275,00'},
-        {date: '20/07', description: 'NETFLIX 5612345', value:'30,00'},
-        {date: '15/07', description: 'FARMÁCIA 24H 65812345', value:'350,00'},
-        {date: '15/07', description: 'FARMÁCIA 24H 65812345', value:'350,00'}
+const Dashboard = ({ className = false, name, account }) => {
+  const [ activeLink, setActiveLink ] = useState(0);
+
+  const links = [
+    { text: 'Minha Conta', path: '/dashboard', exact: true },
+    { text: 'Pagamentos', path: '/dashboard/payments' },
+    { text: 'Extrato', path: '/dashboard/history' },
+  ];
+
+
+  const data = { 
+    latestBalance: [
+      {date: '22/07', description: 'Saque 24h 012345', value:'300,00'},
+      {date: '21/07', description: 'Supermercado 123312132', value:'275,00'},
+      {date: '20/07', description: 'NETFLIX 312312', value:'30,00'},
+      {date: '15/07', description: 'Farmácia 12445415', value:'350,00'}
+  ],
+
+    futureBalance: [
+      {date: '22/08', description: 'Salário 012345', value:'3000,00'},
+      {date: '21/08', description: 'Imagine 123312132', value:'275,00'},
+      {date: '20/08', description: 'NETFLIX 312312', value:'30,00'},
+      {date: '15/08', description: 'Farmácia 12445415', value:'350,00'}
+  ],
+    history: [
+      {date: '17/07', description: 'SAQUE 24H 012345', value: '200,00-', balance: ''},
+      {date: '17/07', description: 'SALDO DO DIA', value: '', balance: '2.7800,00'},
+      {date: '19/07', description: 'ESTACIONAMENTO 123234', value: '12,00-', balance: ''},
+      {date: '19/07', description: 'COMPRA INTERNET 123432', value: '450,00-', balance: ''},
+      {date: '19/07', description: 'SALDO DO DIA', value: '', balance: '2.318,00'},
+      {date: '21/07', description: 'SUPERMERCADO 2312332', value: '275,90-', balance: ''},
+      {date: '21/07', description: 'ESTACIONAMENTO 123234', value: '12,00-', balance: ''},
+      {date: '21/07', description: 'SHOPPING 123432', value: '180,00-', balance: ''},
+      {date: '21/07', description: 'SALDO DO DIA', value: '', balance: '1,851,00'},
+      {date: '22/07', description: 'SUPERMERCADO 2312332', value: '275,90-', balance: ''},
+      {date: '22/07', description: 'DEPÓSITO 123234', value: '1,000,00-', balance: ''},
+      {date: '22/07', description: 'SALDO DO DIA', value: '', balance: '2576,00'},
     ]
+};
 
-    const futureData = [
-        {date: '22/08', description: 'SALÁRIO 24H 8982345', value:'3000,00'},
-        {date: '21/08', description: 'IMAGINE 25312345', value:'1000,00'},
-        {date: '20/08', description: 'NETFLIX 5612345', value:'30,00'},
-        {date: '15/08', description: 'FARMÁCIA 24H 65812345', value:'350,00'},
-    ]
-
-    return(
-    <Container className='dashboard py-5'>
-        <Row>
-            <Col xs={12} lg={4}>
-                <Row className='align-content-center mb-5'>
-                    <Col xs={3}>
-                        <span className='dashboard__user-avatar'>
-                            <FontAwesomeIcon 
-                                icon={faCircle} 
-                                size='5x' 
-                                color='#f8f9fa' />
-                            <FontAwesomeIcon 
-                                className='dashboard__user-icon'
-                                icon={faUser} 
-                                size='3x' 
-                                color='#7c7d7d' 
-                            />
-                        </span>
-                    </Col>
-                    <Col xs={9}>
-                        <h4>Ranayke Boni</h4>
-                        <p className='text-muted'>ag: 50188235 c/c:5621-5</p>
-                    </Col>
-                </Row>
+  return (
+    <Container className={`dashboard py-5 ${className ? className : ''}`}>       
+     <Row> 
+        <Col xs={12} lg={4}>
+          <Row className='align-items-center mb-5'>
+            <Col xs={3}>
+              <span className='dashboard__user-avatar'>
+                <FontAwesomeIcon icon={faCircle} size='5x' color='#f8f9fa' />
+                <FontAwesomeIcon className='dashboard__user-icon' icon={faUser} size='3x' color='#7c7d7d' />
+              </span>
+            </Col>
+            <Col xs={9}>
+              <h4>Ranayke Boni Ferreira</h4>
+              <p className='text-muted'>ag: 581028 c/: 36254-8</p>
+            </Col>
+          </Row>
+          <div className='d-grid gap-2'>
+            {links.map(({ text, path, exact }, key) => (
+            <Link 
+            to={path} 
+            exact={exact ? exact : false} key={key}
+            >
                 <Button 
-                    className='dashboard__button dashboard__button--active text-left' 
+                    className={`dashboard__button text-start ${key === activeLink ? 'dashboard__button--active' : ''}`} 
                     variant='link' 
                     size='lg' 
-                    block
+                    onClick={() => setActiveLink(key)}
                     >
-                    Minha conta
+                    {text}
                 </Button>
-                <Button 
-                    className='dashboard__button text-left' 
-                    variant='link' 
-                    size='lg' 
-                    block
-                    >
-                    Pagamentos
-                </Button>
-                <Button 
-                    className='dashboard__button text-left' 
-                    variant='link' 
-                    size='lg' 
-                    block
-                    >
-                    Extrato
-                </Button>
-            </Col>
-            <Col xs={12} lg={3} className='mt-lg-5 pt-lg-4'>
-                <h3 className='my-5'>Conta Corrente</h3>
-                <h6>
-                    <small>
-                        <strong>Saldo em conta corrente</strong>
-                    </small>
-                </h6>
-                <h4 className='text-success mb-4'>
-                    <small>R$</small>3.500<small>,00</small>
-                </h4>
-                <h6>
-                    <strong>Cheque especial</strong>
-                </h6>
-                <p className='mb-0'>Limite disponível</p>
-                <p className='mb-4'>R$ 5.000,00</p>
-                <Button variant='secondary'>Ver extrato</Button>
-            </Col>
-            <Col xs={12} lg={5} className='mt-lg-5 pt-lg-5'>
-                <Tabs className='mt-5 pt-lg-5' defaultActiveKey='latest' >
-                    <Tab 
-                        eventKey='latest' 
-                        title='Últimos Lançamentos'>
-                        <Table striped borderless>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Valor (R$)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {latestData.map(({ date, description, value }) => (
-                                <tr>
-                                    <td>{date}</td>
-                                    <td>{description}</td>
-                                    <td>{value}</td>
-                                </tr>
-                                ))}
-                                
-                            </tbody>
-                        </Table>
-                    </Tab>
-                    <Tab 
-                        eventKey='future' 
-                        title='Lançamentos Futuros'>
-                        <Table  striped borderless>
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Descrição</th>
-                                    <th>Valor (R$)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {futureData.map(({ date, description, value }) => (
-                                    <tr>
-                                        <td>{date}</td>
-                                        <td>{description}</td>
-                                        <td>{value}</td>
-                                    </tr>
-                                ))}     
-                            </tbody>
-                        </Table>
-                    </Tab>
-                </Tabs>
-            </Col>
+            </Link>
+            ))}
+          </div>
+        </Col>
 
-        </Row>
+        <Routes>
+            <Route path='history' element={<AccountHistory data={data} />} />
+            <Route path='payments' element={<AccountPayments />} />
+            <Route path='/' element={<AccountBalance data={data} />} />
+        </Routes>
+     </Row>
     </Container>
-)
-    };
+  );
+};
 
 export default Dashboard;
