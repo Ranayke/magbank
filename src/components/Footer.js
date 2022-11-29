@@ -22,7 +22,7 @@ const Footer = () => (
 
                 <Col xs={12} lg={4} className='py-xs'>
                     <Image src={applestore}/>
-                    <Image src={googleplay} className='ml-2'/>
+                    <Image src={googleplay} className='ms-2'/>
                 </Col>
 
                 <Col xs={12} lg={2} className='d-flex align-items-center justify-content-center'>
@@ -35,13 +35,13 @@ const Footer = () => (
                     icon={faTwitter}
                     color='#7c7c7c'
                     size='2x'
-                    className='ml-2'
+                    className='ms-2'
                 />
                 <FontAwesomeIcon
                     icon={faYoutube}
                     color='#7c7c7c'
                     size='2x'
-                    className='ml-2'
+                    className='ms-2'
                 />
                 </Col>
             </Row>
