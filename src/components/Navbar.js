@@ -1,10 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Navbar, Nav, ButtonGroup, Button, NavDropdown, Dropdown } from "react-bootstrap";
+import { Link, useNavigate } from 'react-router-dom';
+import { Container, Navbar, Nav, ButtonGroup, Button, NavDropdown, Dropdown, Form } from "react-bootstrap";
 import "./Navbar.scss";
 import logo from "../assets/logo.svg";
 
-const Navigation = ({ handleCreateAcc }) => (
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
+const Navigation = ({ handleCreateAcc, logged, auth }) => {
+  const navigate = useNavigate();
+
+  const handleClick = e => {
+  e.preventDefault();
+  auth.logout(() => navigate('/login'));
+  };
+
+  return (
   <Navbar variant='dark' expand='lg'>
     <Container>
       <Navbar.Brand href='#home'>
@@ -17,6 +28,21 @@ const Navigation = ({ handleCreateAcc }) => (
         />
         </Link>
       </Navbar.Brand>
+      {logged && (
+            <>
+              <Form>
+                <div className='navbar__search-group d-none d-lg-flex'>
+                  <Form.Control type='text' placeholder='O que você procura?' />
+                  <Button variant='link'>
+                    <FontAwesomeIcon icon={faSearch} color='#FFF' />
+                  </Button>
+                </div>
+              </Form>
+            <Button variant='outline-light' onClick={handleClick}>Sair</Button>
+          </>
+          )}
+          {!logged && (
+          <>
       <Navbar.Toggle aria-controls='basic-navbar-nav fab' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='me-auto'>
@@ -44,9 +70,10 @@ const Navigation = ({ handleCreateAcc }) => (
           </Button>
         </ButtonGroup>
       </Navbar.Collapse>
+      </>
+    )}
     </Container>
   </Navbar>
-);
+)};
 
 export default Navigation;
-
