@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Accordion } from 'react-bootstrap';
 import IconText from './IconText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,17 +19,19 @@ const Faq = () => {
     { icon: faUserTie, text: 'Produtos e serviços'},
   ];
 
-  const [ index, setIndex ] = useState(0);
+  const [ index, setIndex ] = useState(1);
 
-  const handleClick = (key) => {
+  const handleClick = key => {
     setIndex(key);
   };
 
+  useEffect(() => {}, [index]);
+
   return (
   <section className='faq text-light'>
-    <Container className='faq py-5'>
+    <Container className='py-5'>
       <Row className='text-center'>
-        <h2 className='faq-title my-5'>Dúvidas frequentes</h2>
+        <h2 className='faq-title my-5' id='faq'>Dúvidas frequentes</h2>
       </Row>
         <Row className='d-flex align-items-center justify-items-center'>
             <Col className='d-lg-none mb-5' xs={12}>
@@ -45,7 +47,7 @@ const Faq = () => {
                     </Col>
                   ))}
                 </Row>
-                <Row className='justify-content-center mt-5'>
+                <Row className='text-center mt-5'>
                   <p className='lead'>{options[index].text}</p>
                 </Row>
             </Col>

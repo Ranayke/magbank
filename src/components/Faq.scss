@@ -8,7 +8,7 @@
     border: none;
   }
   .accordion-button {
-    background: $color-faq-background;
+    background: $color-faq-header;
     color: #fff;
   }
   &-title {
@@ -27,3 +27,6 @@
   }
 }
 
+.acc__item {
+  color: #fff;
+}

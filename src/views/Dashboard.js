@@ -61,8 +61,8 @@ const Dashboard = ({ className = false, name, account }) => {
               </span>
             </Col>
             <Col xs={9}>
-              <h4>Ranayke Boni Ferreira</h4>
-              <p className='text-muted'>ag: 581028 c/: 36254-8</p>
+              <h4>{name}</h4>
+              <p className='text-muted'>{account}</p>
             </Col>
           </Row>
           <div className='d-grid gap-2'>
